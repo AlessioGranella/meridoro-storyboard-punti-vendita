@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Storyboard punti vendita Meridoro</title>
+
+<style>
+/* ── Font del cliente ─────────────────────────────────────────────────── */
+@font-face{font-family:"Fredoka";src:url("assets/fonts/fredoka-latin.woff2") format("woff2");font-weight:300 700;font-stretch:75% 125%;font-display:swap}
+@font-face{font-family:"Roboto Flex";src:url("assets/fonts/robotoflex-latin.woff2") format("woff2");font-weight:100 1000;font-display:swap}
+
+/* ── Token Produttori Arborea (main palette del brandbook) ────────────── */
+:root{
+  --pa-oro:#D7B46A; --pa-campagna:#004928; --pa-sabbia:#FFF7F1; --pa-bianco:#FFFFFF;
+  --paesaggio-chiaro:#EBD9B4; /* oro chiaro del paesaggio Meridoro (fondo delle scene 1 e 6) */
+  --pa-ferro:#535A60; --pa-argento:#B6C0C6; --pa-notte:#000E1E; --pa-arancio:#F18700;
+
+  --title:"Fredoka",system-ui,sans-serif;
+  --text:"Roboto Flex",-apple-system,"Helvetica Neue",Arial,sans-serif;
+
+  --pa-space-xs:8px; --pa-space-s:12px; --pa-space-m:16px; --pa-space-l:24px;
+  --pa-space-xl:32px; --pa-space-2xl:48px; --pa-space-3xl:64px;
+  --pa-radius-s:8px; --pa-radius-m:16px; --pa-radius-l:24px; --pa-radius-pill:999px;
+  --pa-radius-seme:50% 50% 50% 0;
+
+  --max:1440px; --pad:40px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--pa-sabbia);color:var(--pa-notte);font-family:var(--text);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+@media (max-width:720px){:root{--pad:16px}}
+
+/* ── Testata ──────────────────────────────────────────────────────────── */
+.masthead{background:var(--pa-campagna);color:var(--pa-sabbia);padding:var(--pa-space-3xl) 0 56px}
+.masthead .wrap{display:flex;flex-direction:column;gap:var(--pa-space-l)}
+.eyebrow{font-family:var(--text);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--pa-oro)}
+h1{font-family:var(--title);font-weight:500;font-size:clamp(34px,4.4vw,60px);line-height:1.1;max-width:20ch;color:var(--pa-sabbia)}
+.masthead p.sub{font-size:17px;max-width:68ch;color:var(--pa-sabbia);opacity:.88}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--pa-space-s);margin-top:var(--pa-space-xs)}
+.meta div{background:rgba(255,247,241,.08);border-radius:var(--pa-radius-m);padding:var(--pa-space-m) 18px}
+.meta dt{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--pa-oro);margin-bottom:6px}
+.meta dd{font-size:15px;line-height:1.35;color:var(--pa-sabbia)}
+
+/* ── Video montato ────────────────────────────────────────────────────── */
+.vhero{background:var(--pa-notte);padding:var(--pa-space-2xl) 0 56px}
+.vhero .wrap{display:flex;flex-direction:column;gap:var(--pa-space-m)}
+.vhero h2{font-family:var(--title);font-weight:500;font-size:24px;color:var(--pa-oro)}
+.vhero video{width:100%;height:auto;display:block;border-radius:var(--pa-radius-l);background:#000}
+.vhero p.caption{font-size:14px;color:var(--pa-sabbia);opacity:.8;max-width:90ch}
+
+/* ── Barra strumenti ──────────────────────────────────────────────────── */
+.toolbar{background:var(--pa-sabbia);border-bottom:1px solid rgba(0,73,40,.18);position:sticky;top:0;z-index:10}
+.toolbar .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:var(--pa-space-l);padding-top:14px;padding-bottom:14px}
+.toolbar .label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--pa-ferro)}
+.toggle{display:inline-flex;align-items:center;gap:9px;cursor:pointer;user-select:none;font-size:14px}
+.toggle input{appearance:none;width:18px;height:18px;border:1.5px solid var(--pa-campagna);border-radius:5px;background:var(--pa-bianco);cursor:pointer;display:grid;place-content:center}
+.toggle input:checked{background:var(--pa-campagna)}
+.toggle input:checked::after{content:"";width:8px;height:8px;border-radius:2px;background:var(--pa-oro)}
+.toggle input:focus-visible{outline:2px solid var(--pa-oro);outline-offset:2px}
+.toolbar .hint{font-size:13px;color:var(--pa-ferro);margin-left:auto}
+
+/* ── Griglia scene ────────────────────────────────────────────────────── */
+.board{padding:var(--pa-space-2xl) 0 80px}
+.sec-h{font-family:var(--title);font-weight:500;font-size:28px;color:var(--pa-campagna);margin-bottom:var(--pa-space-xl)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px var(--pa-space-xl)}
+.grid.big{grid-template-columns:1fr}
+@media (max-width:980px){.grid{grid-template-columns:1fr}}
+.beat{display:flex;flex-direction:column;min-width:0}
+
+/* ── Il frame 16:9 ────────────────────────────────────────────────────── */
+.frame{container-type:inline-size;position:relative;aspect-ratio:16/9;overflow:hidden;cursor:pointer;
+  border-radius:var(--pa-radius-l);background:var(--pa-campagna);color:var(--pa-sabbia)}
+.frame.sabbia{background:var(--pa-sabbia);color:var(--pa-campagna);box-shadow:inset 0 0 0 1px rgba(0,73,40,.15)}
+.frame.oro{background:var(--pa-oro);color:var(--pa-campagna)}
+.stage{position:absolute;inset:0}
+.tc{position:absolute;left:2.4cqw;top:2cqw;z-index:5;font-family:var(--text);font-size:1.25cqw;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--pa-sabbia);background:rgba(0,14,30,.55);padding:.35cqw .8cqw;border-radius:var(--pa-radius-pill)}
+.replay{position:absolute;right:2.4cqw;bottom:2cqw;z-index:5;font-size:1.1cqw;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--pa-sabbia);background:rgba(0,14,30,.55);padding:.35cqw .8cqw;border-radius:var(--pa-radius-pill);opacity:0;transition:opacity .2s}
+.frame:hover .replay,.frame:focus-visible .replay{opacity:1}
+.frame:focus-visible{outline:3px solid var(--pa-oro);outline-offset:3px}
+
+/* Lockup Meridoro + endorser 5:1 in basso a destra (tutte le scene tranne apertura e chiusura).
+   16cqw: a 1920 px l'endorser fa 61 px, sopra il minimo digitale di 51 px del brandbook */
+.mark{position:absolute;right:3.6cqw;bottom:3cqw;z-index:4;display:grid;justify-items:center;gap:1cqw;width:16cqw}
+.mark img{display:block;height:auto}
+.mark .b{width:100%} .mark .e{width:20%}
+
+/* Tipografia nei frame: scala X, X/2, X/4, X/6 */
+.k{font-family:var(--text);font-weight:600;font-size:1.35cqw;line-height:1.2;text-transform:uppercase;letter-spacing:.1em;color:var(--pa-oro)}
+.frame.sabbia .k,.frame.oro .k{color:var(--pa-campagna)}
+.hl{font-family:var(--title);font-weight:500;font-size:4cqw;line-height:1.2}
+.hl.xl{font-size:5.4cqw}
+.body{font-family:var(--text);font-weight:500;font-size:1.9cqw;line-height:1.3}
+.frame .hl{color:inherit}
+.cta{font-family:var(--title);font-weight:500;font-size:2.4cqw;line-height:1;text-decoration:underline;text-underline-offset:.35em;text-decoration-thickness:.12em}
+
+/* Animazioni: partono quando il frame riceve .play */
+.a-up,.a-fade,.a-in,.a-left{opacity:0}
+.play .a-up{animation:up .9s var(--ease) var(--d,0s) both}
+.play .a-fade{animation:fade 1.2s ease var(--d,0s) both}
+.play .a-in{animation:pop .7s cubic-bezier(.3,1.5,.5,1) var(--d,0s) both}
+.play .a-left{animation:left 1.1s var(--ease) var(--d,0s) both}
+.static .a-up,.static .a-fade,.static .a-in,.static .a-left{opacity:1;animation:none}
+@keyframes up{from{opacity:0;transform:translateY(1.6cqw)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@keyframes left{from{opacity:0;transform:translateX(4cqw)}to{opacity:1;transform:none}}
+
+/* Sc. 1 — paesaggio */
+.s1 .land{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s1 .tblock{position:absolute;left:7cqw;top:9cqw;width:58cqw;display:flex;flex-direction:column;gap:1.6cqw;color:var(--pa-campagna)}
+.s1 .tblock .logo{display:block;width:22cqw;height:auto;margin-bottom:.6cqw}
+.s1 .pa{position:absolute;left:7cqw;bottom:4cqw;z-index:4;width:11cqw;height:auto}
+
+/* Sc. 2 — animali */
+.s2 .tblock{position:absolute;left:7cqw;top:7cqw;width:62cqw;display:flex;flex-direction:column;gap:1.6cqw}
+.s2 .tblock .hl{color:var(--pa-oro)}
+.s2 .herd{position:absolute;left:5cqw;right:20cqw;bottom:3.4cqw;display:flex;align-items:flex-end;justify-content:space-between}
+.s2 .herd img{height:17cqw;width:auto}
+.s2 .ico{position:absolute;right:4cqw;top:5cqw;width:7cqw}
+
+/* Sc. 3 — ponte */
+.s3 .tblock{position:absolute;left:7cqw;top:50%;transform:translateY(-50%);width:56cqw;display:flex;flex-direction:column;gap:1.6cqw}
+.s3 .spiga{position:absolute;right:9cqw;top:4cqw;height:48cqw}
+.s3 .ico{position:absolute;right:30cqw;bottom:5cqw;width:5.5cqw}
+
+/* Sc. 4–5 — la mappa */
+.map{position:absolute;top:2.6cqw;height:51cqw;aspect-ratio:662/1100}
+.map > img{position:absolute;inset:0;width:100%;height:100%}
+.s4 .map{right:16cqw}
+.s5 .map{left:9cqw}
+.pin{position:absolute;width:1.5cqw;height:1.5cqw;margin:-.75cqw 0 0 -.75cqw;border-radius:50%;
+  background:var(--pa-sabbia);box-shadow:0 0 0 .38cqw var(--pa-oro)}
+.s5 .pin{background:var(--pa-oro);box-shadow:0 0 0 .38cqw var(--pa-campagna)}
+.pin span{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--text);font-weight:600;
+  font-size:1.22cqw;letter-spacing:.02em;color:var(--pa-sabbia);text-shadow:0 0 .5cqw var(--pa-campagna),0 0 .5cqw var(--pa-campagna)}
+.pin.r span{left:2.1cqw} .pin.l span{right:2.1cqw}
+.halo{position:absolute;width:13cqw;height:13cqw;margin:-6.5cqw 0 0 -6.5cqw;border-radius:50%;background:var(--pa-oro);opacity:0;mix-blend-mode:multiply}
+.play .halo{animation:halo 2.4s var(--ease) var(--d,0s) both}
+.static .halo{opacity:.42;transform:none}
+@keyframes halo{from{opacity:0;transform:scale(.1)}to{opacity:.42;transform:none}}
+.s4 .side{position:absolute;left:7cqw;top:8cqw;width:36cqw;display:flex;flex-direction:column;gap:1.4cqw}
+.s4 .num{font-family:var(--title);font-weight:500;font-size:16cqw;line-height:.9;color:var(--pa-oro)}
+.s4 .cap{font-family:var(--title);font-weight:500;font-size:2.7cqw;line-height:1.2;color:var(--pa-sabbia)}
+.s5 .side{position:absolute;left:46cqw;top:50%;transform:translateY(-50%);width:45cqw;display:flex;flex-direction:column;gap:1.6cqw}
+
+/* Sc. 6 — cosa trovi */
+/* illustrazione a tutto frame, testi nella fascia di cielo in alto */
+.s6 .illu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;transform-origin:62% 70%}
+.play.s6 .illu{animation:push6 8s linear both}
+@keyframes push6{from{transform:scale(1)}to{transform:scale(1.08)}}
+.s6 .veil{position:absolute;left:0;right:0;top:0;height:26cqw;background:linear-gradient(to bottom,var(--paesaggio-chiaro) 55%,transparent)}
+.s6 .tblock{position:absolute;left:7cqw;right:7cqw;top:5cqw;z-index:1;display:flex;flex-direction:column;gap:1.8cqw}
+.s6 ul{list-style:none;display:flex;flex-wrap:wrap;gap:1cqw 3.2cqw}
+.s6 li{display:flex;gap:1.1cqw;align-items:center;font-family:var(--text);font-weight:500;font-size:2.1cqw;line-height:1.25}
+.s6 li::before{content:"";flex:none;width:1.6cqw;height:1.6cqw;background:var(--pa-campagna);border-radius:var(--pa-radius-seme)}
+
+/* Sc. 7 — elenco + CTA */
+.s7 .tblock{position:absolute;left:7cqw;top:6cqw;right:7cqw;display:flex;flex-direction:column;gap:1.4cqw}
+.s7 .tblock .hl{color:var(--pa-oro)}
+.s7 .list{position:absolute;left:7cqw;right:7cqw;top:15cqw;display:grid;grid-template-columns:repeat(3,1fr);gap:1.6cqw 3cqw}
+.s7 .list div{font-family:var(--title);font-weight:500;font-size:3cqw;line-height:1.1;color:var(--pa-sabbia)}
+.s7 .list small{font-family:var(--text);font-weight:600;font-size:1.4cqw;color:var(--pa-oro);margin-left:.8cqw;letter-spacing:.04em}
+.s7 .foot{position:absolute;left:7cqw;bottom:5cqw;display:flex;flex-direction:column;gap:1.1cqw}
+.s7 .cta{color:var(--pa-oro)}
+.s7 .url{font-family:var(--text);font-weight:500;font-size:1.6cqw;color:var(--pa-sabbia)}
+
+/* Sc. 8 — chiusura */
+.s8 .lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:2.2cqw;width:40cqw}
+.s8 .lock .b{width:100%} .s8 .lock .e{width:20%}
+.s8 .pa{position:absolute;left:50%;bottom:6cqw;width:13cqw;height:auto;translate:-50% 0}
+
+/* ── Schede testo ─────────────────────────────────────────────────────── */
+.info{padding-top:var(--pa-space-l);display:flex;flex-direction:column;gap:var(--pa-space-m)}
+.idx{font-family:var(--title);font-weight:500;font-size:21px;line-height:1.25;color:var(--pa-campagna);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chip{font-family:var(--text);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:var(--pa-radius-pill);background:var(--pa-campagna);color:var(--pa-sabbia)}
+.chip.o{background:var(--pa-oro);color:var(--pa-campagna)}
+.info dl{display:flex;flex-direction:column;gap:var(--pa-space-s);background:var(--pa-bianco);border-radius:var(--pa-radius-m);padding:var(--pa-space-l)}
+.info dl div{display:grid;grid-template-columns:110px 1fr;gap:var(--pa-space-m)}
+@media (max-width:560px){.info dl div{grid-template-columns:1fr;gap:2px}}
+.info dt{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--pa-ferro);padding-top:3px}
+.info dd{font-size:15px;line-height:1.5}
+.info dd.vo{font-style:italic}
+.info dd.note{color:var(--pa-ferro)}
+
+/* ── Sezioni finali ───────────────────────────────────────────────────── */
+.panel{padding:var(--pa-space-2xl) 0;border-top:1px solid rgba(0,73,40,.15)}
+.panel h2{font-family:var(--title);font-weight:500;font-size:28px;color:var(--pa-campagna);margin-bottom:var(--pa-space-l)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--pa-space-m)}
+.card{background:var(--pa-bianco);border-radius:var(--pa-radius-m);padding:var(--pa-space-l);display:flex;flex-direction:column;gap:var(--pa-space-xs)}
+.card h3{font-family:var(--title);font-weight:500;font-size:19px;line-height:1.25;color:var(--pa-campagna)}
+.card p{font-size:15px}
+table{width:100%;border-collapse:collapse;background:var(--pa-bianco);border-radius:var(--pa-radius-m);overflow:hidden;font-size:14px}
+th{background:var(--pa-bianco);color:var(--pa-campagna);text-align:left;font-weight:600;padding:12px 16px;border-bottom:2px solid var(--pa-oro)}
+td{padding:10px 16px;border-bottom:1px solid rgba(0,73,40,.1)}
+.tablewrap{overflow-x:auto;border-radius:var(--pa-radius-m)}
+footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var(--pa-ferro)}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">Meridoro · Produttori Arborea · Storyboard · Bozza</p>
+    <h1>Video punti vendita agrozootecnici</h1>
+    <p class="sub">Un mini video animato per raccontare la rete Meridoro: prima il contesto, poi la Sardegna disegnata con i 12 punti vendita al loro posto sulla mappa. Nasce dalla richiesta del 28 ottobre 2026. I paesi vengono dal Report di Sostenibilità 2025 e gli indirizzi dalla pagina Meridoro di produttoriarborea.it; la grafica dal design system.</p>
+    <dl class="meta">
+      <div><dt>Durata montaggio</dt><dd>1:01</dd></div>
+      <div><dt>Formato</dt><dd>Orizzontale 16:9 (da confermare)</dd></div>
+      <div><dt>Scene</dt><dd>8</dd></div>
+      <div><dt>Tecnica</dt><dd>Motion graphic su illustrazioni del DS</dd></div>
+      <div><dt>Voce</dt><dd>Simone Grimaldi</dd></div>
+      <div><dt>Musica</dt><dd>Acustica strumentale</dd></div>
+      <div><dt>Tema</dt><dd>Agrozootecnia: oro su campagna</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="vhero">
+  <div class="wrap">
+    <h2>Video montato · prima versione</h2>
+    <video src="assets/final/Meridoro_Punti_Vendita_1080p.mp4?v=12" poster="assets/final/poster.jpg" controls preload="metadata" aria-label="Video completo: i punti vendita Meridoro"></video>
+    <p class="caption">1:01 · 1920×1080 · 25 fps · voce maschile italiana (Simone Grimaldi, ElevenLabs) e tappeto acustico strumentale, abbassato sotto la voce · audio a −14 LUFS. Le otto scene qui sotto sono i segmenti che lo compongono. Il clip della scena 1 è ancora la prova a 720p; la scena 6 ha l'avanzamento in CSS al posto del clip animato.</p>
+  </div>
+</section>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="label">Vista</span>
+    <label class="toggle"><input type="checkbox" id="animToggle" checked> Anima i frame</label>
+    <label class="toggle"><input type="checkbox" id="bigToggle"> Frame grandi</label>
+    <span class="hint">Clic su un frame per rivedere l'animazione</span>
+  </div>
+</div>
+
+<main class="board">
+  <div class="wrap">
+    <h2 class="sec-h">Scena per scena</h2>
+    <div class="grid" id="grid">
+
+      <!-- 1 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s1 oro" data-dur="7" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
+          <div class="stage">
+            <video class="land clip" src="assets/clips/sc01-paesaggio.mp4" poster="assets/frames/sc01-start.jpg" muted playsinline preload="auto" aria-label="Paesaggio Meridoro animato: animali al pascolo e camera che avanza"></video>
+            <div class="tblock">
+              <img class="logo a-up" style="--d:.4s" src="assets/loghi/meridoro-carne.png" alt="Meridoro">
+              <p class="hl xl a-up" style="--d:.9s">Dal Logudoro alla piana di Arborea, l'allevamento è il lavoro di ogni giorno.</p>
+            </div>
+          </div>
+          <img class="pa a-up" style="--d:1.6s" src="assets/loghi/produttori-arborea.svg" alt="Produttori Arborea">
+          <span class="tc">Sc. 1 · 0:00 – 0:08</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 01 · Il contesto <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>Marchio Meridoro in carne #8D1926 (tinta fuori dalle versioni previste dal brandbook: da confermare) · «Dal Logudoro alla piana di Arborea, l'allevamento è il lavoro di ogni giorno.» · marchio Produttori Arborea in basso a sinistra</dd></div>
+            <div><dt>Voce</dt><dd class="vo">In Sardegna l'allevamento è il lavoro di ogni giorno, dal nord dell'isola fino alla piana di Arborea.</dd></div>
+            <div><dt>Regia</dt><dd>Il paesaggio illustrato Meridoro (i due ori del design system) riempie il frame e prende vita: mucche e pecore pascolano, l'erba si muove, la camera avanza lenta. Il titolo entra in campagna sopra il cielo chiaro. Nessun logo: l'apertura è il territorio.</dd></div>
+            <div><dt>Clip</dt><dd>Animazione generata con AI partendo dal paesaggio del design system (7 s, versione di prova a 720p). Tratto e colori restano quelli dell'originale.</dd></div>
+            <div><dt>Nota</dt><dd class="note">L'avanzamento è un po' deciso: alla fine l'albero di destra esce dal quadro. Per la versione finale a 1080p si può chiedere una camera ferma o quasi.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 2 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s2" data-dur="8" tabindex="0" role="button" aria-label="Scena 2, rivedi animazione">
+          <div class="stage">
+            <div class="tblock">
+              <p class="k a-up" style="--d:.3s">Agrozootecnia</p>
+              <p class="hl a-up" style="--d:.7s">Meridoro produce mangimi, concimi e foraggi per gli allevamenti sardi.</p>
+              <p class="body a-up" style="--d:2.2s">Dal mangimificio e dalla filiera foraggera della cooperativa.</p>
+            </div>
+            <div class="herd" aria-hidden="true">
+              <img class="a-up" style="--d:3.2s" src="assets/img/bovino-oro.png" alt="">
+              <img class="a-up" style="--d:3.6s" src="assets/img/ovino-oro.png" alt="">
+              <img class="a-up" style="--d:4s" src="assets/img/caprino-oro.png" alt="">
+            </div>
+          </div>
+          <div class="mark"><img class="b" src="assets/loghi/meridoro-bianco.png" alt="Meridoro"><img class="e" src="assets/loghi/produttori-arborea-bianco.png" alt="Produttori Arborea"></div>
+          <span class="tc">Sc. 2 · 0:08 – 0:18</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 02 · Che cosa fa Meridoro <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>Agrozootecnia · «Meridoro produce mangimi, concimi e foraggi per gli allevamenti sardi.» · «Dal mangimificio e dalla filiera foraggera della cooperativa.»</dd></div>
+            <div><dt>Voce</dt><dd class="vo">Meridoro produce mangimi, concimi e foraggi per gli allevamenti sardi, partendo dal mangimificio e dalla filiera foraggera della cooperativa.</dd></div>
+            <div><dt>Regia</dt><dd>Fondo pieno campagna, come negli stand Meridoro. Bovino, ovino e caprino al tratto in oro salgono uno dopo l'altro.</dd></div>
+            <div><dt>Nota</dt><dd class="note">È la parte di prodotto che Meridoro sta già comunicando. Qui serve solo a ricordarla prima di passare ai punti vendita.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 3 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s3 sabbia" data-dur="6" tabindex="0" role="button" aria-label="Scena 3, rivedi animazione">
+          <div class="stage">
+            <img class="spiga a-left" style="--d:.2s" src="assets/img/spiga-campagna.png" alt="" aria-hidden="true">
+            <div class="tblock">
+              <p class="hl a-up" style="--d:.5s">Per chi alleva conta anche avere un punto di riferimento vicino.</p>
+            </div>
+          </div>
+          <div class="mark"><img class="b" src="assets/loghi/meridoro.svg" alt="Meridoro"><img class="e" src="assets/loghi/produttori-arborea.svg" alt="Produttori Arborea"></div>
+          <span class="tc">Sc. 3 · 0:18 – 0:23</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 03 · Il passaggio ai punti vendita <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>«Per chi alleva conta anche avere un punto di riferimento vicino.»</dd></div>
+            <div><dt>Voce</dt><dd class="vo">E per chi alleva conta anche avere un punto di riferimento vicino.</dd></div>
+            <div><dt>Regia</dt><dd>Stacco su sabbia: è la scena di respiro tra il prodotto e la rete. La spiga in campagna entra da destra. Solo il titolo.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 4 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s4" data-dur="14" tabindex="0" role="button" aria-label="Scena 4, rivedi animazione">
+          <div class="stage">
+            <div class="side">
+              <p class="k a-up" style="--d:.3s">La rete Meridoro</p>
+              <p class="num a-up count" style="--d:1.2s" data-to="12" data-d="1.4" data-t="10.8">12</p>
+              <p class="cap a-up" style="--d:1.6s">punti vendita agrozootecnici in tutta la Sardegna</p>
+            </div>
+            <div class="map" data-pins="seq">
+              <img class="a-fade" style="--d:0s" src="assets/img/mappa-sardegna-oro.png" alt="Illustrazione della Sardegna">
+            </div>
+          </div>
+          <div class="mark"><img class="b" src="assets/loghi/meridoro-bianco.png" alt="Meridoro"><img class="e" src="assets/loghi/produttori-arborea-bianco.png" alt="Produttori Arborea"></div>
+          <span class="tc">Sc. 4 · 0:23 – 0:36</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 04 · La mappa dei 12 punti vendita <span class="chip">Motion graphic</span> <span class="chip o">Dati reali</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>La rete Meridoro · 12 · punti vendita agrozootecnici in tutta la Sardegna · nomi dei paesi sulla mappa: Bassacutena, Muros, Thiesi, Lula, Suni, Bolotana, Fonni, Ortueri, Arborea, Guspini, Domusnovas, Dolianova</dd></div>
+            <div><dt>Voce</dt><dd class="vo">Per questo Meridoro ha dodici punti vendita agrozootecnici, distribuiti in tutta l'isola: da Bassacutena, in Gallura, fino a Domusnovas e Dolianova.</dd></div>
+            <div><dt>Regia</dt><dd>L'illustrazione ufficiale della Sardegna (famiglia «scene» del DS), tinta in oro su campagna. I punti si accendono da nord a sud, uno ogni 0,9 secondi, ciascuno col nome del paese; il contatore sale insieme fino a 12. Le posizioni sono calcolate: ho sovrapposto i confini ISTAT dei comuni all'illustrazione e i bordi coincidono.</dd></div>
+            <div><dt>Nota</dt><dd class="note">È la scena centrale del video. Se serve più tempo per leggere i nomi si può allungare fino a 18 s.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 5 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s5 sabbia" data-dur="9" tabindex="0" role="button" aria-label="Scena 5, rivedi animazione">
+          <div class="stage">
+            <div class="map" data-pins="halo">
+              <img src="assets/img/mappa-sardegna-campagna.png" alt="Illustrazione della Sardegna">
+            </div>
+            <div class="side">
+              <p class="k a-up" style="--d:2.4s">Prossimità</p>
+              <p class="hl a-up" style="--d:2.8s">Una rete pensata per stare vicino agli allevatori, anche in senso geografico.</p>
+            </div>
+          </div>
+          <div class="mark"><img class="b" src="assets/loghi/meridoro.svg" alt="Meridoro"><img class="e" src="assets/loghi/produttori-arborea.svg" alt="Produttori Arborea"></div>
+          <span class="tc">Sc. 5 · 0:36 – 0:44</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 05 · Vicini agli allevatori <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>Prossimità · «Una rete pensata per stare vicino agli allevatori, anche in senso geografico.»</dd></div>
+            <div><dt>Voce</dt><dd class="vo">Una rete pensata per essere davvero vicina agli allevatori, anche in senso fisico e geografico.</dd></div>
+            <div><dt>Regia</dt><dd>La mappa si sposta a sinistra e passa su sabbia, tinta in campagna. Attorno a ogni punto si allarga un alone oro: gli aloni si sovrappongono e coprono l'isola. Il testo riprende le parole della richiesta.</dd></div>
+            <div><dt>Nota</dt><dd class="note">Gli aloni sono un'immagine, non una distanza misurata. Se la cooperativa ha un dato (per esempio «ogni allevamento ha un punto vendita entro X km») va messo qui al posto dell'immagine generica.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 6 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s6 oro" style="background:var(--paesaggio-chiaro)" data-dur="8" tabindex="0" role="button" aria-label="Scena 6, rivedi animazione">
+          <div class="stage">
+            <img class="illu" src="assets/frames/sc06-start.jpg?v=2" alt="" aria-hidden="true">
+            <div class="veil" aria-hidden="true"></div>
+            <div class="tblock">
+              <p class="hl a-up" style="--d:.4s">In ogni punto vendita</p>
+              <ul>
+                <li class="a-up" style="--d:1.4s">Gamma completa Meridoro</li>
+                <li class="a-up" style="--d:2.4s">Consulenza dei tecnici</li>
+                <li class="a-up" style="--d:3.4s">Supporto agli allevatori</li>
+              </ul>
+            </div>
+          </div>
+          <span class="tc">Sc. 6 · 0:44 – 0:50</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 06 · Che cosa si trova <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>In ogni punto vendita · Gamma completa Meridoro · Consulenza dei tecnici · Supporto agli allevatori</dd></div>
+            <div><dt>Voce</dt><dd class="vo">In ogni punto vendita trovi la gamma completa Meridoro e la consulenza dei nostri tecnici.</dd></div>
+            <div><dt>Regia</dt><dd>L'illustrazione «operatori finali e mucche» (DS, famiglia scene) riempie il frame con gli stessi due ori del paesaggio della scena 1: tratto oro #D6B469 su fondo oro chiaro #EBD9B4, con una velatura leggera verso l'oro pieno in basso. Titolo e voci stanno nella fascia di cielo in alto, con una velatura oro che li tiene leggibili; le voci entrano una alla volta, col punto elenco a forma di seme del DS. Qui l'avanzamento è in CSS: nel video diventa un clip animato (mucche che pascolano, allevatori che si muovono), da generare dopo aver approvato quello della scena 1. Il lockup manca perché l'illustrazione occupa l'angolo: torna nella scena dopo.</dd></div>
+            <div><dt>Nota</dt><dd class="note">I tre punti riassumono quello che dice la pagina Meridoro del sito: «gamma completa di prodotti e servizi», «consulenza tecnica qualificata», «supporto completo agli agricoltori e allevatori».</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 7 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s7" data-dur="7" tabindex="0" role="button" aria-label="Scena 7, rivedi animazione">
+          <div class="stage">
+            <div class="tblock">
+              <p class="hl a-up" style="--d:.3s">Trova il punto vendita più vicino</p>
+            </div>
+            <div class="list" id="list"></div>
+            <div class="foot">
+              <p class="cta a-up" style="--d:4.4s">Scopri dove siamo</p>
+              <p class="url a-up" style="--d:4.8s">produttoriarborea.it/meridoro</p>
+            </div>
+          </div>
+          <div class="mark"><img class="b" src="assets/loghi/meridoro-bianco.png" alt="Meridoro"><img class="e" src="assets/loghi/produttori-arborea-bianco.png" alt="Produttori Arborea"></div>
+          <span class="tc">Sc. 7 · 0:50 – 0:56</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 07 · L'elenco e l'invito <span class="chip">Motion graphic</span> <span class="chip o">Dati reali</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>«Trova il punto vendita più vicino» · i 12 paesi con la provincia · CTA sottolineata «Scopri dove siamo» · produttoriarborea.it/meridoro</dd></div>
+            <div><dt>Voce</dt><dd class="vo">Trova il punto vendita più vicino a te.</dd></div>
+            <div><dt>Regia</dt><dd>Torna il fondo campagna. I paesi compaiono in griglia nello stesso ordine della mappa, da nord a sud. La CTA è sottolineata, come vuole il brandbook.</dd></div>
+            <div><dt>Nota</dt><dd class="note">L'indirizzo del sito va confermato: la lista dei punti vendita oggi sta in fondo alla pagina Meridoro. Una pagina dedicata o un QR code funzionerebbero meglio.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <!-- 8 ─────────────────────────────────────────────────────────── -->
+      <article class="beat">
+        <div class="frame s8 oro" data-dur="4" tabindex="0" role="button" aria-label="Scena 8, rivedi animazione">
+          <div class="stage">
+            <div class="lock">
+              <img class="b a-up" style="--d:.3s" src="assets/loghi/meridoro-carne.png" alt="Meridoro">
+            </div>
+            <img class="pa a-up" style="--d:1s" src="assets/loghi/produttori-arborea.svg" alt="Produttori Arborea">
+          </div>
+          <span class="tc">Sc. 8 · 0:56 – 1:01</span><span class="replay">↻ Rivedi</span>
+        </div>
+        <div class="info">
+          <p class="idx">Scena 08 · Chiusura <span class="chip">Motion graphic</span></p>
+          <dl>
+            <div><dt>A schermo</dt><dd>Marchio Meridoro color carne al centro · marchio Produttori Arborea in basso</dd></div>
+            <div><dt>Voce</dt><dd class="vo">Nessuna voce: chiude la musica.</dd></div>
+            <div><dt>Regia</dt><dd>Fondo oro. Marchio Meridoro color carne al centro, Produttori Arborea verde campagna in basso al centro. Nessun effetto sui loghi: entrano con una dissolvenza e basta.</dd></div>
+            <div><dt>Nota</dt><dd class="note">I due marchi stanno separati, come nella scena 1, e non nel blocco con l'endorser 1:5 del brandbook: da confermare.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<section class="panel">
+  <div class="wrap">
+    <h2>I punti vendita</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Paese</th><th>Prov.</th><th>Indirizzo</th><th>Note</th></tr></thead>
+        <tbody id="tab"></tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--pa-ferro);margin-top:var(--pa-space-m)">Fonti: elenco delle località dal Report di Sostenibilità 2025 (pag. 14); indirizzi dalla pagina Meridoro di produttoriarborea.it, letta il 28/10/2026 (Ortueri lì non c'è). Sulla mappa i punti stanno nel centro del comune; Bassacutena è una frazione di Tempio Pausania e ha coordinate proprie.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="wrap">
+    <h2>Punti da confermare</h2>
+    <div class="cards">
+      <div class="card"><h3>Ortueri sul sito</h3><p>Il video segue il Report di Sostenibilità 2025 e il Company Profile 2026: 12 punti vendita, con Ortueri. La pagina Meridoro del sito ne elenca 11 (manca Ortueri) e uno dei contatori della home dice 9: conviene allinearli. Serve anche l'indirizzo di Ortueri.</p></div>
+      <div class="card"><h3>Formato</h3><p>Lo storyboard è in 16:9. Se il video va soprattutto su Instagram e Facebook serve anche un 4:5 o un 9:16: in verticale la mappa ci sta meglio, il testo va sopra.</p></div>
+      <div class="card"><h3>Un dato di vicinanza</h3><p>Un numero concreto (distanza media, comuni serviti, allevamenti raggiunti) renderebbe la scena 5 più forte degli aloni.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Storyboard · Grafica dal design system Produttori Arborea · Illustrazioni, icone e marchi del cliente · Testi e voce in bozza, da approvare</div></footer>
+
+<script>
+const HUBS = [
+  {nome:"Bassacutena", prov:"SS", ind:"Località Campu Majori", x:62.66, y:7.11, nota:"Frazione di Tempio Pausania"},
+  {nome:"Muros",       prov:"SS", ind:"Località Funtana Bria", x:27.68, y:23.92},
+  {nome:"Thiesi",      prov:"SS", ind:"Regione Badde Tolta", x:29.79, y:31.29},
+  {nome:"Lula",        prov:"NU", ind:"Zona industriale del Sologo", x:77.18, y:33.43, nota:"Email «sologo@»"},
+  {nome:"Suni",        prov:"OR", ind:"Zona industriale di Suni", x:25.43, y:40.06},
+  {nome:"Bolotana",    prov:"NU", ind:"Zona industriale Ottana, Loc. S'Ena e S'Umulu", x:46.15, y:39.54, nota:"Sta nella zona industriale di Ottana"},
+  {nome:"Fonni",       prov:"NU", ind:"Località Prato Bello", x:64.88, y:48.79},
+  {nome:"Ortueri",     prov:"NU", ind:"—", x:48.38, y:52.04, lato:"l", nota:"Nel Report di Sostenibilità 2025 e nel Company Profile 2026, non sul sito"},
+  {nome:"Arborea",     prov:"OR", ind:"Strada 14 Ovest", x:25.37, y:62.39, nota:"Sede della cooperativa"},
+  {nome:"Guspini",     prov:"SU", ind:"Zona P.I.P. Corte Semuccu, Viale Mar di Sardegna", x:27.19, y:69.27},
+  {nome:"Domusnovas",  prov:"SU", ind:"Loc. S'Acqua Sassa, zona industriale", x:27.92, y:79.34},
+  {nome:"Dolianova",   prov:"CA", ind:"Località Bardella, via Archimede", x:61.30, y:78.11},
+];
+
+// pin sulle mappe
+document.querySelectorAll('.map').forEach(map => {
+  const halo = map.dataset.pins === 'halo';
+  HUBS.forEach((h, i) => {
+    if (halo) {
+      const a = document.createElement('i');
+      a.className = 'halo'; a.style.left = h.x + '%'; a.style.top = h.y + '%';
+      a.style.setProperty('--d', (.2 + i * .12) + 's');
+      map.appendChild(a);
+    }
+    const p = document.createElement('i');
+    p.className = 'pin a-in ' + (h.lato || (h.x < 35 ? 'l' : 'r'));
+    p.style.left = h.x + '%'; p.style.top = h.y + '%';
+    p.style.setProperty('--d', (halo ? 0 : 1.4 + i * .9) + 's');
+    if (!halo) { const s = document.createElement('span'); s.textContent = h.nome; p.appendChild(s); }
+    map.appendChild(p);
+  });
+});
+
+// elenco scena 7 e tabella
+const list = document.getElementById('list');
+HUBS.forEach((h, i) => {
+  const d = document.createElement('div');
+  d.className = 'a-up'; d.style.setProperty('--d', (1 + i * .28) + 's');
+  d.innerHTML = `${h.nome}<small>${h.prov}</small>`;
+  list.appendChild(d);
+  document.getElementById('tab').insertAdjacentHTML('beforeend',
+    `<tr><td>${h.nome}</td><td>${h.prov}</td><td>${h.ind}</td><td>${h.nota || ''}</td></tr>`);
+});
+
+// riproduzione
+const frames = [...document.querySelectorAll('.frame')];
+const animToggle = document.getElementById('animToggle');
+function count(el) {
+  const to = +el.dataset.to, d = +el.dataset.d * 1000, t = +el.dataset.t * 1000;
+  const t0 = performance.now();
+  el.textContent = '0';
+  (function step(now) {
+    const k = Math.min(1, Math.max(0, (now - t0 - d) / t));
+    el.textContent = Math.round(to * k);
+    if (k < 1 && el.closest('.frame').classList.contains('play')) requestAnimationFrame(step);
+    else if (k >= 1) el.textContent = to;
+  })(t0);
+}
+function play(f) {
+  if (!animToggle.checked) return;
+  f.classList.remove('play', 'static'); void f.offsetWidth; f.classList.add('play');
+  f.querySelectorAll('.count').forEach(count);
+  f.querySelectorAll('video.clip').forEach(v => { v.currentTime = 0; v.play().catch(() => {}); });
+}
+function setStatic() {
+  frames.forEach(f => { f.classList.remove('play'); f.classList.add('static');
+    f.querySelectorAll('video.clip').forEach(v => { v.pause(); v.currentTime = 0; });
+    f.querySelectorAll('.count').forEach(c => c.textContent = c.dataset.to); });
+}
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) play(e.target); }), {threshold: .5});
+frames.forEach(f => {
+  io.observe(f);
+  f.addEventListener('click', () => play(f));
+  f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(f); } });
+});
+animToggle.addEventListener('change', () => animToggle.checked ? frames.forEach(play) : setStatic());
+// ?statico mostra lo stato finale di ogni frame (stampa, controllo)
+if (location.search.includes('statico')) { animToggle.checked = false; setStatic(); }
+document.getElementById('bigToggle').addEventListener('change', e => document.getElementById('grid').classList.toggle('big', e.target.checked));
+</script>
+</body>
+</html>

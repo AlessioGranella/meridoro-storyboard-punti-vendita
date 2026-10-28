@@ -1,1 +1,0 @@
-# meridoro-storyboard-punti-vendita

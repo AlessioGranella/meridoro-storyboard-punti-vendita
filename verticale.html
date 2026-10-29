@@ -86,11 +86,6 @@ h1{font-family:var(--title);font-weight:500;font-size:clamp(34px,4.4vw,60px);lin
 .frame:hover .replay,.frame:focus-visible .replay{opacity:1}
 .frame:focus-visible{outline:3px solid var(--pa-oro);outline-offset:3px}
 
-/* Texture di icone agrozoo del DS (sotto il 35% di opacità, mattonelle grandi) */
-.tex{position:absolute;inset:0;background-repeat:repeat;background-size:96cqw;opacity:.08}
-.tex.oro{background-image:url("assets/img/verticale/texture-oro.svg")}
-.tex.sabbia{background-image:url("assets/img/verticale/texture-sabbia.svg");opacity:.14}
-
 /* Zone sicure dei social: titoli da 22cqw dall'alto, marchio a 20cqw dal fondo */
 .ttl{position:absolute;left:8cqw;right:8cqw;top:22cqw;display:flex;flex-direction:column;gap:3.4cqw}
 .h{font-family:var(--title);font-weight:600;font-size:8.4cqw;line-height:1.02;text-transform:uppercase}
@@ -177,7 +172,7 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
 
 <section class="vhero">
   <div class="wrap">
-    <video src="assets/final/Meridoro_Punti_Vendita_9x16.mp4?v=1" poster="assets/final/poster-9x16.jpg" controls preload="metadata" aria-label="Video verticale: i punti vendita Meridoro"></video>
+    <video src="assets/final/Meridoro_Punti_Vendita_9x16.mp4?v=2" poster="assets/final/poster-9x16.jpg?v=2" controls preload="metadata" aria-label="Video verticale: i punti vendita Meridoro"></video>
     <div class="side">
       <h2>Video montato · versione verticale</h2>
       <p>0:25 · 1080×1920 · 25 fps · stessa voce e stessa musica della versione orizzontale · audio a −14 LUFS.</p>
@@ -186,7 +181,7 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
         <li>Da 1:01 a 25 secondi.</li>
         <li>Niente scene di contesto: dopo il marchio si va subito ai punti vendita.</li>
         <li>Nei punti vendita: mangimi, sementi e tutto quello che serve all'allevamento. Niente elenco di servizi.</li>
-        <li>Linguaggio dei social Meridoro: fondi oro e campagna alternati, texture di icone, titoli maiuscoli, marchio in piede. Niente etichette a pillola.</li>
+        <li>Linguaggio dei social Meridoro: fondi oro e campagna alternati, titoli maiuscoli, marchio in piede. Niente etichette a pillola.</li>
         <li>Titoli e marchio stanno dentro le zone sicure di storie e reel.</li>
       </ul>
     </div>
@@ -210,7 +205,6 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
       <article class="beat">
         <div class="frame v1 oro" tabindex="0" role="button" aria-label="Scena 1, rivedi animazione">
           <div class="stage">
-            <div class="tex sabbia" aria-hidden="true"></div>
             <div class="ttl">
               <p class="h a-up" style="--d:.3s">Il marchio agrozootecnico di Produttori Arborea</p>
             </div>
@@ -228,7 +222,7 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
           <dl>
             <div><dt>A schermo</dt><dd>«Il marchio agrozootecnico di Produttori Arborea» · bovino, ovino e caprino · marchio Meridoro in piede</dd></div>
             <div><dt>Voce</dt><dd class="vo">Meridoro è il marchio agrozootecnico di Produttori Arborea.</dd></div>
-            <div><dt>Regia</dt><dd>Fondo oro con la texture di icone in trasparenza, come nei caroselli Meridoro. Titolo in campagna in alto a sinistra, gli animali al tratto salgono uno dopo l'altro.</dd></div>
+            <div><dt>Regia</dt><dd>Fondo oro. Titolo in campagna in alto a sinistra, gli animali al tratto salgono uno dopo l'altro.</dd></div>
           </dl>
         </div>
       </article>
@@ -237,7 +231,6 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
       <article class="beat">
         <div class="frame v2" tabindex="0" role="button" aria-label="Scena 2, rivedi animazione">
           <div class="stage">
-            <div class="tex oro" aria-hidden="true"></div>
             <div class="ttl">
               <p class="num a-up count" style="--d:.2s" data-to="12" data-d=".9" data-t="6.1">12</p>
               <p class="h a-up" style="--d:.5s">Punti vendita in tutta la Sardegna</p>
@@ -263,7 +256,6 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
       <article class="beat">
         <div class="frame v3 oro" tabindex="0" role="button" aria-label="Scena 3, rivedi animazione">
           <div class="stage">
-            <div class="tex sabbia" aria-hidden="true"></div>
             <div class="ttl">
               <p class="h a-up" style="--d:.3s">Vicini a chi alleva</p>
               <p class="p a-up" style="--d:1.4s">Mangimi, sementi e tutto quello che serve al tuo allevamento.</p>
@@ -287,7 +279,6 @@ footer{padding:var(--pa-space-xl) 0 var(--pa-space-3xl);font-size:13px;color:var
       <article class="beat">
         <div class="frame v4" tabindex="0" role="button" aria-label="Scena 4, rivedi animazione">
           <div class="stage">
-            <div class="tex oro" aria-hidden="true"></div>
             <div class="ttl">
               <p class="h a-up" style="--d:.3s">Trova il più vicino</p>
             </div>
